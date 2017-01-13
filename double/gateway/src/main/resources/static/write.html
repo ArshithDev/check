@@ -1,0 +1,8 @@
+<form ng-submit="nav.update()">
+	<p>The ID is {{nav.greeting.id}}</p>
+	<div class="form-group">
+		<label for="username">Content:</label> <input type="text"
+			class="form-control" id="content" name="content" ng-model="nav.greeting.content"/>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<title>Gateway</title>
+<link href="css/gateway-assets.css" rel="stylesheet">
+<style type="text/css">
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+</style>
+</head>
+
+<body ng-app="gateway" ng-controller="navigation as nav" ng-cloak
+	class="ng-cloak">
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<ul class="nav navbar-nav">
+				<li><a class="navbar-primary" href='/#/' ng-click="nav.home()">Home</a></li>
+				<li><a class="navbar-primary" href='#/' ng-show="nav.authenticated && !nav.userRole" ng-click="nav.test()">Changes</a></li>
+			</ul>
+			<div class="navbar-right">
+				<a class="btn btn-primary" ng-show="!nav.authenticated" href="#/login">login</a>
+				 <a	class="btn btn-primary" ng-show="nav.authenticated" href=""
+					ng-click="nav.logout()">logout</a>
+				<p ng-show="nav.authenticated">
+					Signed in as <a href="/#/" class="navbar-link">{{nav.assignedRole}}</a>
+				</p>
+			</div>
+		</div>
+		</div>
+	</nav>
+	<div class="alert alert-danger" ng-show="nav.error">There was a
+		problem logging in. Please try again.</div>
+	<div class="container" ng-show="!nav.authenticated">
+		<form role="form" ng-submit="nav.login()">
+			<div class="form-group">
+				<label for="username">Username:</label> <input type="text"
+					class="form-control" id="username" name="username"
+					ng-model="nav.credentials.username" />
+			</div>
+			<div class="form-group">
+				<label for="password">Password:</label> <input type="password"
+					class="form-control" id="password" name="password"
+					ng-model="nav.credentials.password" />
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+<!-- 	<div class="container" ng-show="nav.authenticated && ! nav.admin">
+		<a class="btn btn-primary" href="/admin/">Go To User Interface</a>
+	</div>
+	<br/>
+	<div class="container" ng-show="nav.authenticated && nav.admin">
+		<a class="btn btn-primary" href="/admin/">Go To Admin Interface</a>
+	</div> -->
+<div class="container" ng-if="nav.authenticated">
+		<h1 ng-if="nav.assignedRole">{{nav.assignedRole}}</h1>
+		<div ng-show="nav.authenticated" ng-include="nav.template"></div>
+		<div ng-show="!nav.authenticated" ng-include="'unauthenticated.html'"></div>
+	</div>
+	<script src="js/gateway-assets.js" type="text/javascript"></script>
+	<script src="js/gateway.js" type="text/javascript"></script>
+</body>
+</html>
